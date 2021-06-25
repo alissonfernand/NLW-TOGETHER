@@ -3,6 +3,8 @@ import 'package:payflow/shared/themes/app_images.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
 import 'package:payflow/shared/themes/appcolors.dart';
 
+import 'login_controller.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -13,8 +15,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    final controller = LoginController();
+
     Size size = MediaQuery.of(context).size;
-    var paddingTop = MediaQuery.of(context).padding.top;
+    double paddingTop = MediaQuery.of(context).padding.top;
 
     return Scaffold(
       body: Stack(
@@ -78,31 +82,34 @@ class _LoginPageState extends State<LoginPage> {
                     BorderSide(color: AppColors.stroke),
                   ),
                 ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Image.asset(AppImages.google),
+                child: InkWell(
+                  onTap: () => controller.googleSignIn(context),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Image.asset(AppImages.google),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            left: BorderSide(color: AppColors.stroke),
+                      Expanded(
+                        flex: 4,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              left: BorderSide(color: AppColors.stroke),
+                            ),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Entrar com Google',
+                            style: TextStyles.buttonGray,
                           ),
                         ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Entrar com Google',
-                          style: TextStyles.buttonGray,
-                        ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               )
             ],
