@@ -56,8 +56,8 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para
 <div align="center">
   <small>Desenvolvido por Alisson Fernandes - Junho/2021</small>
 
-  [![Instagram Badge](https://img.shields.io/badge/-rodrigo.goncalves.s-6633cc?style=flat-square&labelColor=6633cc&logo=instagram&logoColor=white&link=https://www.instagram.com/alissonfernand3s/)](https://www.instagram.com/alissonfernand3s/) 
-  [![Linkedin Badge](https://img.shields.io/badge/-Rodrigo%20Gonçalves%20Santana-6633cc?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alisson-fernandes-417bb0137/)](https://www.linkedin.com/in/alisson-fernandes-417bb0137/) 
+  [![Instagram Badge](https://img.shields.io/badge/-alissonfernand-6633cc?style=flat-square&labelColor=6633cc&logo=instagram&logoColor=white&link=https://www.instagram.com/alissonfernand3s/)](https://www.instagram.com/alissonfernand3s/) 
+  [![Linkedin Badge](https://img.shields.io/badge/-AlissonFernandes-6633cc?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alisson-fernandes-417bb0137/)](https://www.linkedin.com/in/alisson-fernandes-417bb0137/) 
 </div>
 
 
