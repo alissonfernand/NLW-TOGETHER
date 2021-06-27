@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:payflow/modules/extract/extract_page.dart';
+import 'package:payflow/modules/home/home_controller.dart';
+import 'package:payflow/modules/meus_boletos/meus_boletos_page.dart';
+import 'package:payflow/shared/models/user_model.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
 import 'package:payflow/shared/themes/appcolors.dart';
 
-import 'home_controller.dart';
-
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final UserModel user;
+  const HomePage({Key? key, required this.user}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -14,83 +17,79 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final controller = HomeController();
 
-  final pages = [
-    Container(color: Colors.red),
-    Container(color: Colors.blue),
-  ];
-
-  void handleCurrentPage(int index) {
-    controller.setCurrentPage(index);
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
-    double paddingTop = MediaQuery.of(context).padding.top;
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(152),
         child: Container(
           height: 152,
           color: AppColors.primary,
-          child: Column(
-            children: [
-              SizedBox(height: paddingTop + 5),
-              ListTile(
-                title: Text.rich(
-                  TextSpan(
-                    text: 'Olá, ',
-                    style: TextStyles.titleRegular,
-                    children: [
-                      TextSpan(
-                        text: 'Alisson',
-                        style: TextStyles.titleBoldBackground,
-                      )
-                    ],
-                  ),
-                ),
-                subtitle: Text(
-                  'Mantenha suas contas em dia',
-                  style: TextStyles.captionShape,
-                ),
-                trailing: Container(
-                  height: 48,
-                  width: 48,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
+          child: Center(
+            child: ListTile(
+              title: Text.rich(
+                TextSpan(
+                  text: "Olá, ",
+                  style: TextStyles.titleRegular,
+                  children: [
+                    TextSpan(
+                        text: "${widget.user.name}",
+                        style: TextStyles.titleBoldBackground)
+                  ],
                 ),
               ),
-            ],
+              subtitle: Text(
+                "Mantenha suas contas em dia",
+                style: TextStyles.captionShape,
+              ),
+              trailing: Container(
+                height: 48,
+                width: 48,
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(5),
+                    image: DecorationImage(
+                        image: NetworkImage(widget.user.photoURL!))),
+              ),
+            ),
           ),
         ),
       ),
-      body: pages[controller.currentPage],
+      body: [
+        MeusBoletosPage(
+          key: UniqueKey(),
+        ),
+        ExtractPage(
+          key: UniqueKey(),
+        )
+      ][controller.currentPage],
       bottomNavigationBar: Container(
         height: 90,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-              onPressed: () => handleCurrentPage(0),
-              icon: Icon(
-                Icons.home,
-                color: AppColors.primary,
-              ),
-            ),
+                onPressed: () {
+                  controller.setCurrentPage(0);
+                  setState(() {});
+                },
+                icon: Icon(
+                  Icons.home,
+                  color: controller.currentPage == 0
+                      ? AppColors.primary
+                      : AppColors.body,
+                )),
             GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/barcode_scanner');
+              onTap: () async {
+                await Navigator.pushNamed(context, "/barcode_scanner");
+                setState(() {});
               },
               child: Container(
                 width: 56,
                 height: 56,
                 decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(5),
-                ),
+                    color: AppColors.primary,
+                    borderRadius: BorderRadius.circular(5)),
                 child: Icon(
                   Icons.add_box_outlined,
                   color: AppColors.background,
@@ -98,12 +97,16 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             IconButton(
-              onPressed: () => handleCurrentPage(1),
-              icon: Icon(
-                Icons.description_outlined,
-                color: AppColors.body,
-              ),
-            )
+                onPressed: () {
+                  controller.setCurrentPage(1);
+                  setState(() {});
+                },
+                icon: Icon(
+                  Icons.description_outlined,
+                  color: controller.currentPage == 1
+                      ? AppColors.primary
+                      : AppColors.body,
+                ))
           ],
         ),
       ),
